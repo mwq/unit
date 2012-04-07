@@ -1,27 +1,11 @@
 #!/usr/bin/env ruby
-require 'quantity'
-require 'treetop'
+require 'unit'
 
-class Converter
-  attr_accessor :amount, :from, :to
-
-  def convert
-    c = Quantity::Unit.for(from.to_sym).convert_proc(to.to_sym)
-
-    a = c.call amount
-    "#{"%.2f" % a} #{to}"
-  rescue
-   'oops didn\'t work' 
-  end
+if __FILE__ == $0
+  command = ARGV.join ' '
+  unit = Unit.new command
+  result = unit.result
+  puts result
 end
 
-
-Treetop.load 'conversion'
-parser = ConversionParser.new
-
-command = ARGV.join ' '
-
-parsed =  parser.parse(command)
-
-puts parsed.conversion.convert
 
