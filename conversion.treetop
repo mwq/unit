@@ -1,0 +1,57 @@
+grammar Conversion
+  rule conversion
+    number ' ' unit ' ' command ' ' unit
+    {
+    def content
+      elements.map{ |node| node.text_value.strip }.delete_if { |s| s == '' }
+    end
+
+    def amount
+      content.first.to_f
+    end
+
+    def from
+      content[1]
+    end
+
+    def to
+      content[3]
+    end
+
+    def conversion
+    c = Converter.new
+    c.amount, c.from, c.to = amount, from, to
+    c
+    end
+    }
+  end
+
+
+  rule unit
+   ([a-z])+
+   {
+   def content
+     text_value
+   end
+   }
+  end
+
+  rule command
+  'to' / 'in'
+   {
+   def content
+     text_value
+   end
+   }
+  end
+
+  rule number
+   [0-9]
+   {
+   def content
+     text_value
+   end
+   }
+  end
+
+end
