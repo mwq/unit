@@ -1,4 +1,5 @@
 grammar Conversion
+
   rule conversion
     number ' ' unit ' ' command ' ' unit
     {
@@ -18,10 +19,10 @@ grammar Conversion
       content[3]
     end
 
-    def conversion
+    def result
     c = Converter.new
     c.amount, c.from, c.to = amount, from, to
-    c
+    c.convert
     end
     }
   end
@@ -30,28 +31,16 @@ grammar Conversion
   rule unit
    ([a-z])+
    {
-   def content
-     text_value
-   end
    }
   end
 
   rule command
   'to' / 'in'
-   {
-   def content
-     text_value
-   end
-   }
   end
 
   rule number
-   [0-9]
-   {
-   def content
-     text_value
-   end
-   }
+   ([0-9]+ '.' [0-9]+) / [0-9]+
   end
+
 
 end

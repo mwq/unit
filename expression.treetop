@@ -1,0 +1,23 @@
+grammar Expression
+  include Conversion
+  rule expression
+    conversion / addition
+  end
+
+  rule addition
+  number ' ' unit ' + ' number ' ' unit
+  {
+   def result
+   a = Quantity.new(elements[0].text_value.to_f,Quantity::Unit.for(elements[2].text_value.to_sym)) 
+   b = Quantity.new(elements[4].text_value.to_f,Quantity::Unit.for(elements[6].text_value.to_sym)) 
+   c = a + b
+
+   amount = c.value.to_f
+   unit = amount == 1 ? c.units.to_s : c.units.to_s << 's'
+   "#{amount.to_s.gsub(/0+$/, '').gsub(/.$/,'')} #{unit}"
+   end
+  }
+
+
+  end
+end

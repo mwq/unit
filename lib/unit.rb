@@ -18,13 +18,14 @@ end
 class Unit
   def initialize command
     Treetop.load 'conversion'
-    @parser = ConversionParser.new
+    Treetop.load 'expression'
+    @parser = ExpressionParser.new
     @command = command
   end
 
   def result
     parsed =  @parser.parse(@command)
-    parsed.conversion.convert
+    parsed.result
   end
 end
 
