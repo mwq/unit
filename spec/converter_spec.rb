@@ -6,7 +6,6 @@ describe Unit do
     '1 meter to feet' => '3.28 feet',
     '1.0 meter to feet' => '3.28 feet',
     '1 meter + 1 meter' => '2 meters',
-    '1 meter + 1 meter' => '2 meters',
     '0.5 meters + 0.5 meters' => '1 meter'
   }
 
